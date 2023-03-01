@@ -1,13 +1,10 @@
 function checkLengthString (string, lengthString) {
-  string = string.length;
-  if (string <= lengthString) {
-    return true;
-  } else {
-    return false;
-  }
+  return string.length <= lengthString;
 }
 
-checkLengthString();
+checkLengthString('проверяемая строка', 20);
+checkLengthString('проверяемая строка', 18);
+checkLengthString('проверяемая строка', 10);
 
 function checkPalindrome (string) {
   const lowerString = string.toLowerCase().replaceAll(' ', '');
@@ -18,7 +15,10 @@ function checkPalindrome (string) {
   return lowerString === reverseString;
 }
 
-checkPalindrome();
+checkPalindrome('топот');
+checkPalindrome('ДовОд');
+checkPalindrome('Кекс');
+checkPalindrome('Лёша на полке клопа нашёл ');
 
 function searchNumber (string) {
   if (typeof string === 'number') {
@@ -34,7 +34,14 @@ function searchNumber (string) {
   return parseInt (result, 10);
 }
 
-searchNumber();
+searchNumber('2023 год');
+searchNumber('ECMAScript 2022');
+searchNumber('1 кефир, 0.5 батона');
+searchNumber('агент 007');
+searchNumber('а я томат');
+searchNumber(2023);
+searchNumber(-1);
+searchNumber(1.5);
 
 function myPadStart (string, minLength, pad) {
   const actualPad = minLength - string.length;
@@ -46,4 +53,8 @@ function myPadStart (string, minLength, pad) {
   return pad.slice(0, actualPad % pad.length) + pad.repeat(actualPad / pad.length) + string;
 }
 
-myPadStart();
+myPadStart('1', 2, '0');
+myPadStart('1', 4, '0');
+myPadStart('q', 4, 'werty');
+myPadStart('q', 4, 'we');
+myPadStart('qwerty', 4, '0');
