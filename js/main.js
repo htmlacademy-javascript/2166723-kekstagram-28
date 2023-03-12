@@ -1,3 +1,1 @@
-import {getPictures} from './create-data.js';
-
-getPictures();
+import './photo-template-display.js';
