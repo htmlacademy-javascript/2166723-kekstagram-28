@@ -1,20 +1,24 @@
 import {getPictures} from './create-data.js';
 
-const pictureTemplate = document.querySelector('#picture');
-pictureTemplate.content.querySelector('.picture');
+getPictures();
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const getUserPictures = getPictures();
+const createData = getPictures();
 
 const getUserPicturesFragment = document.createDocumentFragment();
 
-getUserPictures.forEach(({url, likes, comments}) => {
+createData.forEach(({url, likes, comments, description}) => {
   const clonePictureTemplate = pictureTemplate.cloneNode(true);
   clonePictureTemplate.querySelector('.picture__img').src = url;
+  clonePictureTemplate.querySelector('.picture__img').alt = description;
   clonePictureTemplate.querySelector('.picture__likes').textContent = likes;
-  clonePictureTemplate.querySelector('.picture__comments').textContent = comments;
+  clonePictureTemplate.querySelector('.picture__comments').textContent = comments.length;
   getUserPicturesFragment.appendChild(clonePictureTemplate);
 });
 
-const userPictures = document.querySelector('.pictures');
-userPictures.appendChild(getUserPicturesFragment);
+const renderPictures = function () {
+  const userPictures = document.querySelector('.pictures');
+  userPictures.appendChild(getUserPicturesFragment);
+};
 
+export {renderPictures};
