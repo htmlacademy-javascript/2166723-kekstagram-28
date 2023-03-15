@@ -1,3 +1,5 @@
 import {getPictures} from './create-data.js';
+import {renderPictures} from './photo-template-display.js';
 
-getPictures();
+const createData = getPictures();
+renderPictures(createData);
