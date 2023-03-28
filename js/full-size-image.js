@@ -1,7 +1,7 @@
 import {isEscapeKey} from './utils.js';
 
+
 const fullSizeImage = document.querySelector('.big-picture');
-const fullSizeImageOpen = document.querySelector('.picture');
 
 const renderPictureDetails = ({url, likes, comments, avatar, name, message, description}) => {
   const imageCharacteristics = fullSizeImage.querySelector('.big-picture__img');
@@ -9,26 +9,27 @@ const renderPictureDetails = ({url, likes, comments, avatar, name, message, desc
   fullSizeImage.querySelector('.likes-count').textContent = likes;
   fullSizeImage.querySelector('.comments-count').textContent = comments.length;
 
-  const commentsList = fullSizeImage.querySelector('.social__comments');
-
-  commentsList.querySelector('.social__picture').src = avatar;
-  commentsList.querySelector('.social__picture').alt = name;
-  commentsList.querySelector('.social__text').textContent = message;
-  fullSizeImage.querySelector('.social__caption').textContent = description;
+  fullSizeImage.querySelector('.social__comments img').src = avatar;
+  fullSizeImage.querySelector('.social__comments img').alt = name;
+  fullSizeImage.querySelector('.social__comments img').textContent = message;
+  fullSizeImage.querySelector('.social__comments img').textContent = description;
 };
 
 const showBigPicture = (createData) => {
-  fullSizeImageOpen.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    fullSizeImage.classList.remove('hidden');
-    fullSizeImage.querySelector('.social__comment-count').classList.add('hidden');
-    fullSizeImage.querySelector('.comments-loader').classList.add('hidden');
-    document.querySelector('body').classList.add('modal-open');
+  fullSizeImage.classList.remove('hidden');
+  fullSizeImage.querySelector('.social__comment-count').classList.add('hidden');
+  fullSizeImage.querySelector('.comments-loader').classList.add('hidden');
+  document.querySelector('body').classList.add('modal-open');
 
-    renderPictureDetails(createData);
+  renderPictureDetails(createData);
+
+  const buttonCancel = fullSizeImage.querySelector('.big-picture__cancel');
+  buttonCancel.addEventListener('ckick', (evt) => {
+    evt.preventDefault();
+    fullSizeImage.classList.add('hidden');
   });
 
-  document.addEventListener('keydown', (evt) =>{
+  document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       fullSizeImage.classList.add('hidden');
