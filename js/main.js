@@ -5,4 +5,3 @@ const createData = getPictures();
 
 
 renderGallerey(createData);
-
