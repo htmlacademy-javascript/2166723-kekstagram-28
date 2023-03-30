@@ -60,6 +60,10 @@ const showBigPicture = (createData) => {
     renderComments();
   }
 
+  commentsLoader.addEventListener('click', () =>{
+    renderComments();
+  });
+
   const buttonCancel = fullSizeImage.querySelector('.big-picture__cancel');
   buttonCancel.addEventListener('click', (evt) => {
     evt.preventDefault();
