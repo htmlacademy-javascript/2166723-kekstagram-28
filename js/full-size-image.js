@@ -1,19 +1,25 @@
 import {isEscapeKey} from './utils.js';
+const COMMENTS_PER_PORTION = 5;
 
 const fullSizeImage = document.querySelector('.big-picture');
-const commentsLoader = fullSizeImage.querySelector('.comments-loader');
-const COMMENTS_PER_PORTION = 5;
+const commentsLoaderButton = fullSizeImage.querySelector('.comments-loader');
 const commentList = fullSizeImage.querySelector('.social__comments');
 const commentCount = fullSizeImage.querySelector('.social__comment-count');
 
 const createComments = ({avatar, name, message}) => {
   const comment = document.createElement('li');
-  comment.innerHTML = '<img class="social__picture" src="" alt="" width="35" height="35"> <p class="social__text"></p>';
   comment.classList.add('social__comment');
+  const imageComment = document.createElement('img');
+  imageComment.classList.add('social__picture');
+  const textComment = document.createElement('p');
+  textComment.classList.add('social__text');
 
-  comment.querySelector('.social__picture').src = avatar;
-  comment.querySelector('.social__picture').alt = name;
-  comment.querySelector('.social__text').textContent = message;
+  imageComment.src = avatar;
+  imageComment.alt = name;
+  textComment.textContent = message;
+  comment.appendChild(imageComment);
+  comment.appendChild(textComment);
+
   return comment;
 };
 
@@ -24,10 +30,10 @@ const renderComments = () => {
   commentsShown += COMMENTS_PER_PORTION;
 
   if (commentsShown >= comments.length) {
-    commentsLoader.classList.add('hidden');
+    commentsLoaderButton.classList.add('hidden');
     commentsShown = comments.length;
   } else {
-    commentsLoader.classList.remove('hidden');
+    commentsLoaderButton.classList.remove('hidden');
   }
 
   const fragment = document.createDocumentFragment();
@@ -59,10 +65,6 @@ const showBigPicture = (createData) => {
     renderComments();
   }
 
-  commentsLoader.addEventListener ('click', () => {
-    renderComments();
-  });
-
   const buttonCancel = fullSizeImage.querySelector('.big-picture__cancel');
   buttonCancel.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -76,8 +78,18 @@ const showBigPicture = (createData) => {
       evt.preventDefault();
       fullSizeImage.classList.add('hidden');
       document.querySelector('body').classList.remove('modal-open');
+      commentsShown = 0;
     }
   });
 };
+
+commentsLoaderButton.addEventListener ('click', () => {
+  renderComments();
+});
+
+
+commentsLoaderButton.removeEventListener ('click', () => {
+  renderComments();
+});
 
 export {showBigPicture};
