@@ -54,13 +54,12 @@ const showBigPicture = (createData) => {
   document.querySelector('body').classList.add('modal-open');
 
   renderPictureDetails(createData);
-
   comments = createData.comments;
   if (comments.length > 0) {
     renderComments();
   }
 
-  commentsLoader.addEventListener('click', () =>{
+  commentsLoader.addEventListener ('click', () => {
     renderComments();
   });
 
@@ -69,6 +68,7 @@ const showBigPicture = (createData) => {
     evt.preventDefault();
     fullSizeImage.classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
+    commentsShown = 0;
   });
 
   document.addEventListener('keydown', (evt) => {
