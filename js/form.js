@@ -1,6 +1,8 @@
-const TAG_ERROR_TEXT = 'Неправильно заполнены хэштеги';
 const VALID_SIMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_COUNT = 5;
+const VALID_COUNT_TEXT = 'Хештегов не может быть больше 5';
+const VALID_UNIQUE_TEXT = 'Хэштеги должны быть уникальны и не могут повторяться';
+const VALID_SIMBOLS_TEXT = 'Тег должен начинаться на # и содержать а-я, a-z, 0-9 и быть не длинее 20 символов';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -58,18 +60,45 @@ const hasUniqueTags = (tags) => {
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
-const validateTags = (value) => {
+const createTags = (value) => {
   const tags = value
     .trim()
     .split(' ')
     .filter((tag) => tag.trim().length);
-  return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidTag);
+  return tags;
+};
+
+const validateTagsCount = (value) => {
+  const tags = createTags(value);
+  return hasValidCount(tags);
+};
+
+const validateTagsUnique = (value) => {
+  const tags = createTags(value);
+  return hasUniqueTags(tags);
+};
+
+const validateTagsEvery = (value) => {
+  const tags = createTags(value);
+  return tags.every(isValidTag);
 };
 
 pristine.addValidator(
   hashtagField,
-  validateTags,
-  TAG_ERROR_TEXT
+  validateTagsCount,
+  VALID_COUNT_TEXT
+);
+
+pristine.addValidator(
+  hashtagField,
+  validateTagsUnique,
+  VALID_UNIQUE_TEXT
+);
+
+pristine.addValidator(
+  hashtagField,
+  validateTagsEvery,
+  VALID_SIMBOLS_TEXT
 );
 
 const onFormSubmit = (evt) => {
