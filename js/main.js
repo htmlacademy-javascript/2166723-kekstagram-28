@@ -4,5 +4,4 @@ import './form.js';
 
 const createData = getPictures();
 
-
 renderGallerey(createData);
