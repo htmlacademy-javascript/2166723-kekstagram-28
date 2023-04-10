@@ -64,7 +64,7 @@ const showSliser = () => {
 };
 
 const hideSlider = () => {
-  sliderContainerElement.classList.remove('hidden');
+  sliderContainerElement.classList.add('hidden');
 };
 
 const updateSlider = () => {
