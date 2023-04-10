@@ -1,3 +1,6 @@
+import { resetScale } from './scale-control.js';
+import { resetEffects } from './effects.js';
+
 const VALID_SIMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_COUNT = 5;
 const VALID_COUNT_TEXT = 'Хештегов не может быть больше 5';
@@ -26,6 +29,8 @@ const showModal = () => {
 
 const hideModal = () => {
   form.reset();
+  resetScale();
+  resetEffects();
   pristine.reset();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
