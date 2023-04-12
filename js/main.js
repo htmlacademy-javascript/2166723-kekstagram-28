@@ -15,13 +15,6 @@ setOnFormSubmit(async (data) => {
   }
 });
 
-// try {
-//   const data = await getData();
-//   renderGallerey(data);
-// } catch (err) {
-//   showAlert(err.message);
-// }
-
 try {
   const data = await getData();
   const debouncedRenderGallery = debounce(renderGallerey);
