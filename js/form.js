@@ -12,6 +12,7 @@ const overlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
 const cancelButton = document.querySelector('#upload-cancel');
 const fileField = document.querySelector('#upload-file');
+const submitButton = document.querySelector('#upload-submit');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
 
@@ -106,11 +107,30 @@ pristine.addValidator(
   VALID_SIMBOLS_TEXT
 );
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикуется...';
+};
+
+const unBlockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const setOnFormSubmit = (cb) => {
+  form.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      blockSubmitButton();
+      await cb (new FormData(form));
+      unBlockSubmitButton();
+    }
+  });
 };
 
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
-form.addEventListener('submit', onFormSubmit);
+
+export {setOnFormSubmit, hideModal};
