@@ -42,7 +42,7 @@ const isTextFieldFocused = () =>
   document.activeElement === hashtagField ||
   document.activeElement === commentField;
 
-function onDocumentKeydown(evt) {
+function onDocumentKeydown (evt) {
   if (evt.key === 'Escape' && !isTextFieldFocused()) {
     evt.preventDefault();
     hideModal();
@@ -133,4 +133,4 @@ const setOnFormSubmit = (cb) => {
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
 
-export {setOnFormSubmit, hideModal};
+export {setOnFormSubmit, hideModal, onDocumentKeydown};

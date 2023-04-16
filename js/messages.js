@@ -1,4 +1,5 @@
 import {isEscapeKey} from './utils.js';
+import {onDocumentKeydown} from './form.js';
 
 const ALERT_SHOW_TIME = 5000;
 
@@ -9,7 +10,7 @@ const successContainerTemplate = document.querySelector('#success').content.quer
 const showErrorMessage = () => {
   const errorContainer = errorContainerTemplate.cloneNode(true);
   const errorCloseButton = errorContainer.querySelector('.error__button');
-
+  document.removeEventListener('keydown', onDocumentKeydown);
   errorContainer.style.zIndex = '100';
 
   document.body.append(errorContainer);
@@ -18,6 +19,7 @@ const showErrorMessage = () => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       onCloseAlertClick();
+      document.addEventListener('keydown', onDocumentKeydown);
     }
   };
 
@@ -66,7 +68,7 @@ const showSuccessMessage = () => {
     }
   };
 
-  function onCloseMessageClick() {
+  function onCloseMessageClick () {
     successContainer.remove();
     successCloseButton.removeEventListener('click', onCloseMessageClick);
     document.removeEventListener('keydown', onPopupEscKeydown);

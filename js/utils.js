@@ -33,16 +33,16 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-function debounce (callback, timeoutDelay = 500) {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
 
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
-function throttle (callback, delayBetweenFrames) {
+const throttle = (callback, delayBetweenFrames) => {
   let lastTime = 0;
 
   return (...rest) => {
@@ -53,6 +53,6 @@ function throttle (callback, delayBetweenFrames) {
       lastTime = now;
     }
   };
-}
+};
 
 export {getRandomInteger, getRandomArrayElement, isEscapeKey, showAlert, debounce, throttle};
